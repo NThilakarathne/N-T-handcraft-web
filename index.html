@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nethum Handcrafts - Artisanal Handmade Crafts</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js for interactivity -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom styles -->
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        .bg-gradient {
+            background: linear-gradient(to right, #A97142, #D4A76A);
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-image: linear-gradient(to right, #A97142, #D4A76A);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        craft: {
+                            brown: '#A97142',
+                            tan: '#D4A76A',
+                            light: '#F5EFE6',
+                            dark: '#5D4037'
+                        }
+                    }
+                }
+            },
+            darkMode: 'class'
+        }
+    </script>
+</head>
+<body class="font-sans antialiased text-gray-800 dark:text-gray-200 bg-craft-light dark:bg-gray-900" x-data="{ darkMode: localStorage.getItem('darkMode') === 'true', mobileMenu: false }">
+    <!-- Dark mode toggle script -->
+    <script>
+        if (localStorage.getItem('darkMode') === 'true' || 
+            (!localStorage.getItem('darkMode') && 
+             window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('darkMode', 'true');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('darkMode', 'false');
+        }
+    </script>
+
+    <!-- Header -->
+    <header class="fixed w-full bg-white dark:bg-gray-900 shadow-md z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-gradient">Nethum Handcrafts</a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="text-gray-600 dark:text-gray-300 hover:text-craft-brown dark:hover:text-craft-tan transition-colors">Home</a>
+                <a href="#about" class="text-gray-600 dark:text-gray-300 hover:text-craft-brown dark:hover:text-craft-tan transition-colors">Our Story</a>
+                <a href="#collections" class="text-gray-600 dark:text-gray-300 hover:text-craft-brown dark:hover:text-craft-tan transition-colors">Collections</a>
+                <a href="#featured" class="text-gray-600 dark:text-gray-300 hover:text-craft-brown dark:hover:text-craft-tan transition-colors">Featured Items</a>
+                <a href="#testimonials" class="text-gray-600 dark:text-gray-300 hover:text-craft-brown dark:hover:text-craft-tan transition-colors">Testimonials</a>
+                <a href="#contact" class="text-gray-600 dark:text-gray-300 hover:text-craft-brown dark:hover:text-craft-tan transition-colors">Contact</a>
+            </nav>
+            
+            <div class="flex items-center space-x-4">
+                <!-- Dark mode toggle -->
+                <button @click="darkMode = !darkMode; localStorage.setItem('darkMode', darkMode.toString()); darkMode ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark')" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                    <i class="fas" :class="darkMode ? 'fa-sun text-yellow-400' : 'fa-moon text-gray-600'"></i>
+                </button>
+                
+                <!-- Mobile menu button -->
+                <button @click="mobileMenu = !mobileMenu" class="md:hidden p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                    <i class="fas" :class="mobileMenu ? 'fa-times' : 'fa-bars'"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <nav x-show="mobileMenu" x-transition class="md:hidden bg-white dark:bg-gray-800 shadow-lg">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+                <a href="#home" @click="mobileMenu = false" class="text-gray-600 dark:text-gray-300 hover:text-craft-brown dark:hover:text-craft-tan transition-colors">Home</a>
+                <a href="#about" @click="mobileMenu = false" class="text-gray-600 dark:text-gray-300 hover:text-craft-brown dark:hover:text-craft-tan transition-colors">Our Story</a>
+                <a href="#collections" @click="mobileMenu = false" class="text-gray-600 dark:text-gray-300 hover:text-craft-brown dark:hover:text-craft-tan transition-colors">Collections</a>
+                <a href="#featured" @click="mobileMenu = false" class="text-gray-600 dark:text-gray-300 hover:text-craft-brown dark:hover:text-craft-tan transition-colors">Featured Items</a>
+                <a href="#testimonials" @click="mobileMenu = false" class="text-gray-600 dark:text-gray-300 hover:text-craft-brown dark:hover:text-craft-tan transition-colors">Testimonials</a>
+                <a href="#contact" @click="mobileMenu = false" class="text-gray-600 dark:text-gray-300 hover:text-craft-brown dark:hover:text-craft-tan transition-colors">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-24 pb-16 md:pt-32 md:pb-24">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Welcome to <span class="text-gradient">Nethum Handcrafts</span></h1>
+                    <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-gray-600 dark:text-gray-300">Artisanal Crafts Made With Love</h2>
+                    <p class="text-lg mb-8 text-gray-600 dark:text-gray-400">Discover our collection of handcrafted treasures, each piece carefully created with traditional techniques and modern designs to bring warmth and character to your home.</p>
+                    <div class="flex space-x-4">
+                        <a href="#featured" class="px-6 py-3 bg-gradient text-white font-medium rounded-lg hover:opacity-90 transition-opacity">Shop Now</a>
+                        <a href="#about" class="px-6 py-3 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">Our Story</a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="https://images.unsplash.com/photo-1606722590583-6951b5ea92ad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="Handcrafted Items" class="w-full h-auto rounded-lg shadow-xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Story</h2>
+                <div class="w-20 h-1 bg-craft-brown mx-auto"></div>
+            </div>
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0">
+                    <img src="https://images.unsplash.com/photo-1605627079912-97c3810a11a4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1772&q=80" alt="Craftsman working" class="rounded-lg shadow-xl">
+                </div>
+                <div class="md:w-1/2 md:pl-12">
+                    <h3 class="text-2xl font-semibold mb-4">The Nethum Handcrafts Journey</h3>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6">
+                        Nethum Handcrafts began as a small family workshop in 2010, born from a passion for preserving traditional craftsmanship while embracing contemporary design. Our founder, Nethum, learned the art of handcrafting from his grandfather, who was a master craftsman in his village.
+                    </p>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6">
+                        What started as a hobby quickly blossomed into a thriving business as people fell in love with our unique pieces that blend traditional techniques with modern aesthetics. Today, we work with a small team of skilled artisans who share our commitment to quality and sustainability.
+                    </p>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6">
+                        Each item in our collection is handmade with care, using responsibly sourced materials. We take pride in creating pieces that tell a story and bring a touch of artisanal beauty to everyday life.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <h4 class="font-semibold mb-2">Our Values</h4>
+                            <p class="text-gray-600 dark:text-gray-400">Sustainability<br>Craftsmanship<br>Community</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Visit Our Workshop</h4>
+                            <p class="text-gray-600 dark:text-gray-400">123 Artisan Street<br>Craft District<br>Open Tue-Sat, 10am-6pm</p>
+                        </div>
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-craft-brown hover:text-craft-dark dark:text-craft-tan dark:hover:text-craft-light transition-colors">
+                            <i class="fab fa-instagram text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-craft-brown hover:text-craft-dark dark:text-craft-tan dark:hover:text-craft-light transition-colors">
+                            <i class="fab fa-facebook text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-craft-brown hover:text-craft-dark dark:text-craft-tan dark:hover:text-craft-light transition-colors">
+                            <i class="fab fa-pinterest text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-craft-brown hover:text-craft-dark dark:text-craft-tan dark:hover:text-craft-light transition-colors">
+                            <i class="fab fa-etsy text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collections Section -->
+    <section id="collections" class="py-16 bg-craft-light dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Collections</h2>
+                <div class="w-20 h-1 bg-craft-brown mx-auto mb-6"></div>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Explore our diverse range of handcrafted collections, each with its own unique story and character.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Collection 1 -->
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="w-16 h-16 bg-craft-tan/30 dark:bg-craft-brown/30 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-home text-2xl text-craft-brown dark:text-craft-tan"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Home Decor</h3>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Beautiful handcrafted items to add warmth and character to your living spaces. From wall hangings to decorative bowls, each piece is designed to make your house feel like home.
+                    </p>
+                </div>
+                
+                <!-- Collection 2 -->
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="w-16 h-16 bg-craft-tan/30 dark:bg-craft-brown/30 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-utensils text-2xl text-craft-brown dark:text-craft-tan"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Kitchen & Dining</h3>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Elevate your dining experience with our handcrafted tableware, serving dishes, and kitchen accessories. Functional art that brings joy to everyday meals.
+                    </p>
+                </div>
+                
+                <!-- Collection 3 -->
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="w-16 h-16 bg-craft-tan/30 dark:bg-craft-brown/30 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-gift text-2xl text-craft-brown dark:text-craft-tan"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Gift Collections</h3>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Thoughtfully curated gift sets for every occasion. From housewarming presents to wedding gifts, our handcrafted items make meaningful and memorable gifts.
+                    </p>
+                </div>
+                
+                <!-- Collection 4 -->
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="w-16 h-16 bg-craft-tan/30 dark:bg-craft-brown/30 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-gem text-2xl text-craft-brown dark:text-craft-tan"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Jewelry & Accessories</h3>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Handcrafted jewelry and accessories that celebrate individuality. Each piece is designed to be both beautiful and wearable, adding a touch of artisanal elegance to any outfit.
+                    </p>
+                </div>
+                
+                <!-- Collection 5 -->
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="w-16 h-16 bg-craft-tan/30 dark:bg-craft-brown/30 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-leaf text-2xl text-craft-brown dark:text-craft-tan"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Eco-Friendly Collection</h3>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Sustainable products made from recycled and responsibly sourced materials. Beautiful items that are kind to the planet without compromising on style or quality.
+                    </p>
+                </div>
+                
+                <!-- Collection 6 -->
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="w-16 h-16 bg-craft-tan/30 dark:bg-craft-brown/30 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-paint-brush text-2xl text-craft-brown dark:text-craft-tan"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Custom Creations</h3>
+                    <p class="text-gray-600 dark:text-gray-400">
+                        Bespoke handcrafted items made to your specifications. Work with our artisans to create something truly unique that perfectly suits your needs and style.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Items Section -->
+    <section id="featured" class="py-16 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Featured Items</h2>
+                <div class="w-20 h-1 bg-craft-brown mx-auto mb-6"></div>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Discover our most popular handcrafted pieces, each one telling its own unique story.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Item 1 -->
+                <div class="bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                    <img src="https://images.unsplash.com/photo-1612196808214-b8e1d6145a8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="Handwoven Basket" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Handwoven Basket Set</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">A set of three nesting baskets, handwoven from sustainable materials. Perfect for storage or as a decorative accent.</p>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-craft-brown dark:text-craft-tan font-bold text-xl">$45.00</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">In Stock</span>
+                        </div>
+                        <a href="#" class="block w-full py-2 bg-gradient text-white font-medium rounded-lg text-center hover:opacity-90 transition-opacity">Add to Cart</a>
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                    <img src="https://images.unsplash.com/photo-1603031612646-0e9b51f5a7d6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="Ceramic Mug Set" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Ceramic Mug Set</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Set of four handcrafted ceramic mugs, each with a unique glaze pattern. Microwave and dishwasher safe.</p>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-craft-brown dark:text-craft-tan font-bold text-xl">$65.00</span>
+                            <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-sm">Low Stock</span>
+                        </div>
+                        <a href="#" class="block w-full py-2 bg-gradient text-white font-medium rounded-lg text-center hover:opacity-90 transition-opacity">Add to Cart</a>
+                    </div>
+                </div>
+                
+                <!-- Item 3 -->
+                <div class="bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                    <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="Macrame Wall Hanging" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Macrame Wall Hanging</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Intricate macrame wall hanging made from organic cotton rope. A beautiful focal point for any room.</p>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-craft-brown dark:text-craft-tan font-bold text-xl">$89.00</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">In Stock</span>
+                        </div>
+                        <a href="#" class="block w-full py-2 bg-gradient text-white font-medium rounded-lg text-center hover:opacity-90 transition-opacity">Add to Cart</a>
+                    </div>
+                </div>
+                
+                <!-- Item 4 -->
+                <div class="bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                    <img src="https://images.unsplash.com/photo-1635767798638-3e25273a8236?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="Wooden Serving Board" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Wooden Serving Board</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Hand-carved serving board made from reclaimed wood. Each piece features unique grain patterns and natural edges.</p>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-craft-brown dark:text-craft-tan font-bold text-xl">$55.00</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">In Stock</span>
+                        </div>
+                        <a href="#" class="block w-full py-2 bg-gradient text-white font-medium rounded-lg text-center hover:opacity-90 transition-opacity">Add to Cart</a>
+                    </div>
+                </div>
+                
+                <!-- Item 5 -->
+                <div class="bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                    <img src="https://images.unsplash.com/photo-1601459427108-47e20d579a35?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1771&q=80" alt="Handmade Soap Set" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Handmade Soap Set</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Set of four artisanal soaps made with natural ingredients and essential oils. Gentle on skin and beautifully scented.</p>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-craft-brown dark:text-craft-tan font-bold text-xl">$32.00</span>
+                            <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm">Sold Out</span>
+                        </div>
+                        <a href="#" class="block w-full py-2 bg-gray-300 text-gray-700 font-medium rounded-lg text-center cursor-not-allowed">Notify Me</a>
+                    </div>
+                </div>
+                
+                <!-- Item 6 -->
+                <div class="bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow">
+                    <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="Hand-Knit Throw Blanket" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Hand-Knit Throw Blanket</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">Luxuriously soft throw blanket, hand-knit from premium merino wool. The perfect addition to any cozy space.</p>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-craft-brown dark:text-craft-tan font-bold text-xl">$120.00</span>
+                            <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">In Stock</span>
+                        </div>
+                        <a href="#" class="block w-full py-2 bg-gradient text-white font-medium rounded-lg text-center hover:opacity-90 transition-opacity">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="px-6 py-3 bg-gradient text-white font-medium rounded-lg hover:opacity-90 transition-opacity">View All Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-16 bg-craft-light dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Customer Love</h2>
+                <div class="w-20 h-1 bg-craft-brown mx-auto mb-6"></div>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Here's what our customers have to say about their Nethum Handcrafts experience.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6 italic">"The craftsmanship of my ceramic set is absolutely stunning. Each piece feels special and unique. I love supporting artisans who put such care into their work. Will definitely be ordering more!"</p>
+                    <div class="flex items-center">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Customer" class="w-12 h-12 rounded-full object-cover mr-4">
+                        <div>
+                            <h4 class="font-semibold">Emily R.</h4>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Loyal Customer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6 italic">"I purchased the macrame wall hanging as a housewarming gift for my sister, and she absolutely loves it! The quality is exceptional, and it arrived beautifully packaged. Nethum Handcrafts will be my go-to for unique gifts."</p>
+                    <div class="flex items-center">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Customer" class="w-12 h-12 rounded-full object-cover mr-4">
+                        <div>
+                            <h4 class="font-semibold">James T.</h4>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Happy Customer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6 italic">"The wooden serving board I ordered is a work of art. I appreciate that they use reclaimed wood and that each piece is unique. The customer service was excellent too - they helped me choose the perfect piece for my needs."</p>
+                    <div class="flex items-center">
+                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Customer" class="w-12 h-12 rounded-full object-cover mr-4">
+                        <div>
+                            <h4 class="font-semibold">Sophia L.</h4>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm">Repeat Customer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
+                <div class="w-20 h-1 bg-craft-brown mx-auto mb-6"></div>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Have questions about our products or interested in a custom order? We'd love to hear from you!</p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-8">
+                <div class="md:w-1/2">
+                    <form class="bg-craft-light dark:bg-gray-900 p-8 rounded-lg shadow-lg">
+                        <div class="mb-6">
+                            <label for="name" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-craft-brown dark:bg-gray-800 dark:text-white" placeholder="Your name">
+                        </div>
+                        <div class="mb-6">
+                            <label for="email" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">Email</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-craft-brown dark:bg-gray-800 dark:text-white" placeholder="Your email">
+                        </div>
+                        <div class="mb-6">
+                            <label for="subject" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">Subject</label>
+                            <select id="subject" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-craft-brown dark:bg-gray-800 dark:text-white">
+                                <option value="" disabled selected>Select a subject</option>
+                                <option value="product">Product Inquiry</option>
+                                <option value="custom">Custom Order</option>
+                                <option value="wholesale">Wholesale Information</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">Message</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-craft-brown dark:bg-gray-800 dark:text-white" placeholder="Your message"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3 bg-gradient text-white font-medium rounded-lg hover:opacity-90 transition-opacity">Send Message</button>
+                    </form>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <div class="bg-craft-light dark:bg-gray-900 p-8 rounded-lg shadow-lg h-full">
+                        <h3 class="text-2xl font-semibold mb-6">Visit Our Workshop</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-craft-tan/30 dark:bg-craft-brown/30 rounded-lg flex items-center justify-center mr-4">
+                                    <i class="fas fa-map-marker-alt text-xl text-craft-brown dark:text-craft-tan"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">Location</h4>
+                                    <p class="text-gray-600 dark:text-gray-400">123 Artisan Street<br>Craft District<br>Artville, AR 12345</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-craft-tan/30 dark:bg-craft-brown/30 rounded-lg flex items-center justify-center mr-4">
+                                    <i class="fas fa-envelope text-xl text-craft-brown dark:text-craft-tan"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">Email</h4>
+                                    <p class="text-gray-600 dark:text-gray-400">hello@nethumhandcrafts.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-craft-tan/30 dark:bg-craft-brown/30 rounded-lg flex items-center justify-center mr-4">
+                                    <i class="fas fa-phone text-xl text-craft-brown dark:text-craft-tan"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">Phone</h4>
+                                    <p class="text-gray-600 dark:text-gray-400">(555) 123-4567</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-craft-tan/30 dark:bg-craft-brown/30 rounded-lg flex items-center justify-center mr-4">
+                                    <i class="fas fa-clock text-xl text-craft-brown dark:text-craft-tan"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-1">Workshop Hours</h4>
+                                    <p class="text-gray-600 dark:text-gray-400">Tuesday - Saturday: 10am - 6pm<br>Sunday & Monday: Closed</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="font-semibold mb-4">Follow Us</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-10 h-10 bg-craft-tan/30 dark:bg-craft-brown/30 rounded-full flex items-center justify-center text-craft-brown dark:text-craft-tan hover:bg-craft-tan/50 dark:hover:bg-craft-brown/50 transition-colors">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-craft-tan/30 dark:bg-craft-brown/30 rounded-full flex items-center justify-center text-craft-brown dark:text-craft-tan hover:bg-craft-tan/50 dark:hover:bg-craft-brown/50 transition-colors">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-craft-tan/30 dark:bg-craft-brown/30 rounded-full flex items-center justify-center text-craft-brown dark:text-craft-tan hover:bg-craft-tan/50 dark:hover:bg-craft-brown/50 transition-colors">
+                                    <i class="fab fa-pinterest-p"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-craft-tan/30 dark:bg-craft-brown/30 rounded-full flex items-center justify-center text-craft-brown dark:text-craft-tan hover:bg-craft-tan/50 dark:hover:bg-craft-brown/50 transition-colors">
+                                    <i class="fab fa-etsy"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-12 bg-gradient">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-1/2 mb-6 md:mb-0">
+                    <h3 class="text-2xl font-bold text-white mb-2">Join Our Newsletter</h3>
+                    <p class="text-white/80">Subscribe to receive updates on new collections, special offers, and artisan stories.</p>
+                </div>
+                <div class="md:w-1/2">
+                    <form class="flex flex-col sm:flex-row gap-3">
+                        <input type="email" placeholder="Your email address" class="flex-grow px-4 py-3 rounded-lg focus:outline-none">
+                        <button type="submit" class="px-6 py-3 bg-white text-craft-brown font-medium rounded-lg hover:bg-gray-100 transition-colors">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Nethum Handcrafts</h4>
+                    <p class="text-gray-400 mb-4">Artisanal crafts made with love and tradition, bringing beauty to everyday life.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-pinterest-p"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-etsy"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Shop</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">All Products</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Home Decor</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Kitchen & Dining</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Jewelry & Accessories</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Gift Collections</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Information</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Sustainability</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Artisan Stories</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Workshop Tours</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Custom Orders</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Customer Service</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Shipping & Returns</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Care Instructions</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="border-gray-800 my-8">
+            
+            <div class="text-center text-gray-400">
+                <p>&copy; 2025 Nethum Handcrafts. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to top button -->
+    <button id="scrollToTop" class="fixed bottom-6 right-6 w-12 h-12 bg-craft-brown text-white rounded-full flex items-center justify-center shadow-lg hover:bg-craft-dark transition-colors opacity-0 invisible">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Custom JavaScript -->
+    <script>
+        // Scroll to top button
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.remove('opacity-0', 'invisible');
+                scrollToTopBtn.classList.add('opacity-100', 'visible');
+            } else {
+                scrollToTopBtn.classList.remove('opacity-100', 'visible');
+                scrollToTopBtn.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
